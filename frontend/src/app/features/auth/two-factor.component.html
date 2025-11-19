@@ -1,0 +1,43 @@
+<div class="card">
+  <h2>Two-Factor Authentication (TOTP)</h2>
+  <p class="muted">
+    Add an extra layer of security. Requires a valid JWT (sign in first).
+  </p>
+
+  <div class="notice" *ngIf="!isAuthenticated">
+    Sign in to enable two-factor setup.
+  </div>
+
+  <div class="actions">
+    <button type="button" (click)="generateSecret()" [disabled]="!isAuthenticated || generating">
+      {{ generating ? 'Generating…' : 'Generate new secret' }}
+    </button>
+  </div>
+
+  <div class="secret" *ngIf="setupResult">
+    <p>Secret: <code>{{ setupResult.secret }}</code></p>
+    <img [src]="setupResult.qr" alt="QR code for TOTP" />
+  </div>
+
+  <form class="verify" [formGroup]="verifyForm" (ngSubmit)="verify()">
+    <div class="field">
+      <label for="token">6-digit token</label>
+      <input id="token" formControlName="token" inputmode="numeric" placeholder="123456" />
+    </div>
+    <div class="field">
+      <label for="secret">Secret (optional)</label>
+      <input
+        id="secret"
+        formControlName="secret"
+        placeholder="Leave blank to use saved secret"
+      />
+    </div>
+
+    <button type="submit" [disabled]="verifyForm.invalid || verifying || !isAuthenticated">
+      {{ verifying ? 'Verifying…' : 'Verify token' }}
+    </button>
+  </form>
+
+  <div class="status" *ngIf="message">{{ message }}</div>
+  <div class="error" *ngIf="error">{{ error }}</div>
+</div>

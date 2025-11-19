@@ -1,0 +1,22 @@
+{
+    "REQ-AUTH-001": {
+        "test": "backend/tests/auth.test.js::should register user",
+        "owner": "backend-team",
+        "coverage_target": "unit+integration"
+    },
+    "REQ-AUTH-002": {
+        "test": "backend/tests/auth.test.js::should login user",
+        "owner": "backend-team",
+        "coverage_target": "integration"
+    },
+    "REQ-JOB-001": {
+        "test": "backend/tests/job.test.js::should perform CRUD",
+        "owner": "backend-team",
+        "coverage_target": "unit+integration"
+    },
+    "REQ-DASH-001": {
+        "test": "frontend/app/dashboard/dashboard.component.spec.ts::should render chart",
+        "owner": "frontend-team",
+        "coverage_target": "unit"
+    }
+}

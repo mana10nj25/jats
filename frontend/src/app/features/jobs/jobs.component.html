@@ -1,0 +1,107 @@
+<section class="workspace">
+  <div class="alert" *ngIf="error$ | async as error">
+    <span>{{ error }}</span>
+    <button type="button" class="ghost" (click)="retry()">Retry</button>
+  </div>
+
+  <div class="panel form-panel">
+    <header>
+      <h2>Add Application</h2>
+      <span>Capture the essentials in seconds.</span>
+    </header>
+
+    <form [formGroup]="jobForm" (ngSubmit)="submit()" novalidate>
+      <div class="field">
+        <label for="company">Company</label>
+        <input id="company" type="text" formControlName="company" placeholder="Acme Robotics" />
+      </div>
+
+      <div class="field">
+        <label for="title">Role</label>
+        <input id="title" type="text" formControlName="title" placeholder="Senior Frontend Engineer" />
+      </div>
+
+      <div class="field">
+        <label for="status">Status</label>
+        <select id="status" formControlName="status">
+          <option *ngFor="let status of statusOptions" [value]="status">
+            {{ statusLabel(status) }}
+          </option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="dateApplied">Applied On</label>
+        <input id="dateApplied" type="date" formControlName="dateApplied" />
+      </div>
+
+      <div class="field">
+        <label for="nextFollowUp">Next Follow-up</label>
+        <input id="nextFollowUp" type="date" formControlName="nextFollowUp" />
+      </div>
+
+      <button type="submit" [disabled]="jobForm.invalid || saving">
+        {{ saving ? 'Saving...' : 'Save Job' }}
+      </button>
+    </form>
+  </div>
+
+  <div class="panel">
+    <header>
+      <h2>Pipeline</h2>
+      <span>Sort and track every application.</span>
+    </header>
+
+    <ng-container *ngIf="loading$ | async; else jobsTable">
+      <p class="empty">Loading jobs...</p>
+    </ng-container>
+
+    <ng-template #jobsTable>
+      <table *ngIf="jobs$ | async as jobs; else emptyState">
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Applied</th>
+          <th>Next Follow-up</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let job of jobs">
+          <td>{{ job.company }}</td>
+          <td>{{ job.title }}</td>
+          <td>
+            <select
+              [value]="job.status"
+              (change)="changeStatus(job.id, $any($event.target).value)"
+              [disabled]="isStatusUpdating(job.id)"
+            >
+              <option *ngFor="let status of statusOptions" [value]="status">
+                {{ statusLabel(status) }}
+              </option>
+            </select>
+          </td>
+          <td>{{ job.dateApplied | date: 'MMM d, y' }}</td>
+          <td>{{ job.nextFollowUp | date: 'MMM d, y' }}</td>
+          <td>
+            <button
+              type="button"
+              class="ghost"
+              (click)="removeJob(job.id)"
+              [disabled]="isDeleting(job.id)"
+            >
+              {{ isDeleting(job.id) ? 'Removing...' : 'Remove' }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      </table>
+    </ng-template>
+
+    <ng-template #emptyState>
+      <p class="empty">No applications yet. Add your first job to get started.</p>
+    </ng-template>
+  </div>
+</section>

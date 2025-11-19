@@ -1,0 +1,16 @@
+# Node / Angular artifacts
+**/node_modules
+**/dist
+**/coverage
+
+# Env files
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Editor
+.vscode/
+
+# OS junk
+.DS_Store
+Thumbs.db

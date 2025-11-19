@@ -1,0 +1,87 @@
+<section class="grid" *ngIf="summary$ | async as summary">
+  <article class="card highlight">
+    <p class="label">Active Applications</p>
+    <p class="metric">{{ summary.total }}</p>
+    <p class="supporting">Tracking every application in one place.</p>
+  </article>
+
+  <article class="card">
+    <p class="label">Interviews Scheduled</p>
+    <p class="metric">{{ summary.byStatus['interview'] }}</p>
+    <p class="supporting">On-site and virtual interviews coming up.</p>
+  </article>
+
+  <article class="card">
+    <p class="label">Offers</p>
+    <p class="metric">{{ summary.byStatus['offer'] }}</p>
+    <p class="supporting">Awaiting decisions.</p>
+  </article>
+
+  <article class="card">
+    <p class="label">Upcoming Follow-ups</p>
+    <p class="metric">{{ summary.upcomingFollowUps }}</p>
+    <p class="supporting">Stay on top of commitments.</p>
+  </article>
+</section>
+
+<section class="panel">
+  <header>
+    <h2>Pipeline Overview</h2>
+    <span>Where each application stands today</span>
+  </header>
+
+  <div class="status-grid" *ngIf="summary$ | async as summary">
+    <div class="status-card" *ngFor="let key of statusKeys">
+      <span class="status-label">{{ statusLabel(key) }}</span>
+      <strong class="status-value">{{ summary.byStatus[key] }}</strong>
+    </div>
+  </div>
+</section>
+
+<section class="panel split">
+  <div>
+    <header>
+      <h3>Upcoming Follow-ups</h3>
+      <span>Never miss a touch point</span>
+    </header>
+
+    <ul class="list" *ngIf="upcomingFollowUps$ | async as followUps; else emptyFollowUps">
+      <li *ngFor="let job of followUps">
+        <div>
+          <strong>{{ job.company }}</strong>
+          <span>{{ job.title }}</span>
+        </div>
+        <span>{{ job.nextFollowUp | date: 'mediumDate' }}</span>
+      </li>
+    </ul>
+    <ng-template #emptyFollowUps>
+      <p class="empty">No upcoming reminders. Add next steps in the Jobs workspace.</p>
+    </ng-template>
+  </div>
+
+  <div>
+    <header>
+      <h3>Recent Applications</h3>
+      <span>Last five submissions</span>
+    </header>
+
+    <table *ngIf="recentApplications$ | async as recent">
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Role</th>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let job of recent">
+          <td>{{ job.company }}</td>
+          <td>{{ job.title }}</td>
+          <td>{{ job.dateApplied | date: 'mediumDate' }}</td>
+          <td><span class="pill">{{ statusLabel(job.status) }}</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

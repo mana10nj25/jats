@@ -1,0 +1,155 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 10px 40px rgb(15 23 42 / 0.05);
+
+  &.highlight {
+    background: linear-gradient(135deg, #1a237e, #3949ab);
+    color: #fff;
+  }
+}
+
+.label {
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.metric {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin: 0.25rem 0;
+}
+
+.supporting {
+  color: rgb(100 116 139);
+  margin: 0;
+}
+
+.panel {
+  background: #fff;
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 30px 80px rgb(15 23 42 / 0.08);
+
+  header {
+    margin-bottom: 1.5rem;
+
+    h2,
+    h3 {
+      margin: 0;
+      font-weight: 600;
+    }
+
+    span {
+      color: rgb(100 116 139);
+      font-size: 0.9rem;
+    }
+  }
+
+  &.split {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+  }
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.status-card {
+  border: 1px solid rgb(226 232 240);
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.status-label {
+  font-size: 0.9rem;
+  color: rgb(71 85 105);
+}
+
+.status-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgb(241 245 249);
+    background: rgb(248 250 252);
+
+    strong {
+      display: block;
+    }
+
+    span {
+      color: rgb(100 116 139);
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.empty {
+  margin: 0;
+  color: rgb(148 163 184);
+  font-style: italic;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    text-align: left;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgb(100 116 139);
+    padding-bottom: 0.75rem;
+  }
+
+  td {
+    padding: 0.75rem 0;
+    border-top: 1px solid rgb(241 245 249);
+  }
+}
+
+.pill {
+  display: inline-flex;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: rgb(226 232 240);
+  font-size: 0.8rem;
+}

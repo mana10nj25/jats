@@ -1,0 +1,40 @@
+<div class="app-shell">
+  <header class="app-header">
+    <div class="brand">
+      <span class="logo">JATS</span>
+      <div>
+        <h1>Job Application Tracking System</h1>
+        <p>Secure tracking, analytics, and reminders for your search.</p>
+      </div>
+    </div>
+
+    <nav>
+      <ng-container *ngIf="(isAuthenticated$ | async) === true; else authOnly">
+        <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          Dashboard
+        </a>
+        <a routerLink="/jobs" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          Jobs
+        </a>
+        <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          Admin
+        </a>
+        <a routerLink="/menu" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          Menu
+        </a>
+        <span class="user-chip" *ngIf="(currentUserEmail$ | async) as email">
+          {{ email }}
+        </span>
+      </ng-container>
+      <ng-template #authOnly>
+        <a routerLink="/auth" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          Auth
+        </a>
+      </ng-template>
+    </nav>
+  </header>
+
+  <main>
+    <router-outlet />
+  </main>
+</div>

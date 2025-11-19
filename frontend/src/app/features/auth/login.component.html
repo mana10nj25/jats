@@ -1,0 +1,39 @@
+<section class="auth-shell">
+  <div class="card">
+    <h2>Login</h2>
+    <p class="muted">Enter your credentials to fetch a JWT for API calls.</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" placeholder="you@example.com" />
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Minimum 8 characters"
+        />
+      </div>
+
+      <button type="submit" [disabled]="form.invalid || loading">
+        {{ loading ? 'Signing in…' : 'Sign in' }}
+      </button>
+    </form>
+
+    <div class="status" *ngIf="successEmail">
+      Signed in as {{ successEmail }}
+    </div>
+    <div class="error" *ngIf="error">{{ error }}</div>
+
+    <div class="cta">
+      <p class="muted">Don't have an account yet?</p>
+      <button type="button" class="ghost" (click)="register()" [disabled]="loading">
+        {{ loading ? 'Working…' : 'Create account' }}
+      </button>
+    </div>
+  </div>
+</section>
